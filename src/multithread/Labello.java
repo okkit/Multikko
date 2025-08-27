@@ -1,14 +1,38 @@
 package multithread;
 
-import java.awt.Font;
+import java.awt.Color;
 
 import javax.swing.JLabel;
 
-public class Labello extends JLabel{
-
+public class Labello extends JLabel implements Layout{
+	
 	public Labello() {
 		super();
-		setFont(new Font("Helvetica", Font.ITALIC, 22));
+		setFont(FONT);
+	}
+	
+	public Labello(int whatFor) {
+		super();
+		switch (whatFor) {
+		case 1: {
+			setFont(BIG_FONT);
+			break;
+		}
+		case 2: {
+			setFont(INFO_FONT);
+			setForeground(Color.RED);
+			break;
+		}
+		default:
+			setFont(FONT);
+			break;
+		}
+		
+	}
+
+	public Labello(String title) {
+		this();
+		setText(title);
 	}
 	
 	public void setText(String txt1, String txt2) {

@@ -3,16 +3,16 @@ package multithread;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public abstract class Pannelli extends JPanel {
 
-	Labello mainLabel;
-	Labello textFieldThreadLabel;
-	Labello resultThreadLabel;
-	Buttoni eventButton;
+	Labello mainLabel; // What is running
+	Labello infoLabel; // Info what to expect
+	Buttoni eventButton; // To initiate a simulation of long-lasting access to the database
+	Textii inputField; // For testing of ui-input
+	Labello resultLabel; // Result after database access was done
 
-	JTextField inputField;
+	long time;
 
 	public Pannelli() {
 		super();
@@ -22,58 +22,73 @@ public abstract class Pannelli extends JPanel {
 	}
 
 	private void init() {
-		mainLabel = new Labello();
+		mainLabel = new Labello(1);
 		add(mainLabel);
 		
-		eventButton = new Buttoni("Strart the simulation of an acces to data base");
+		infoLabel = new Labello(2);
+		add(infoLabel);
+
+		eventButton = new Buttoni("Start the simulation of a long-lasting access to data base");
 		add(eventButton);
 		eventButton.addActionListener(e -> buttonWasClicked());
-		
-		add(inputField = new JTextField("Tippe was nach dem Klicken auf den Button"));
-		add(resultThreadLabel = new Labello());
+
+		add(inputField = new Textii("Type something in this field after simulation started"));
+		add(resultLabel = new Labello("Result after database access was done"));
 	}
 
-	/**
-	 * 
-	 */
-	
-	protected void buttonWasClicked() {
-		System.out.println(" call RunQueries in Thread: " + Thread.currentThread().getName());
-		callRunQueries();
-		System.out.println(" call showQueryResult in Thread: " + Thread.currentThread().getName());
-		showQueryResult();
-	}
-	
 	protected abstract void defineLabels();
+	protected abstract void buttonWasClicked();
+//	{
+//		System.out.println(" call RunQueries in Thread: " + Thread.currentThread().getName());
+//		eventButton.setText("Simulation was started. Thread: " + Thread.currentThread().getName());
+//		callRunQueries();
+//		System.out
+//				.println(" Show Simulation Result in Thread: " + Thread.currentThread().getName());
+//		showQueryResult();
+//	}
 
-	protected abstract void callRunQueries();
-	
-	protected abstract void showQueryResult();
 
 	/**
 	 * Simuliert einen remote und lang andauernden Zugriff auf eine Datenbank zwecks
-	 * erhaltens großer Datenmenge. <br>
-	 * Die Simulation bezieht sich ausschließlich auf die Dauer des Zugriffs, d.h.
-	 * in dieser Methode findet etwas statt, was viel Zeit benötigt. <br>
+	 * erhaltens groï¿½er Datenmenge. <br>
+	 * Die Simulation bezieht sich ausschlieï¿½lich auf die Dauer des Zugriffs, d.h.
+	 * in dieser Methode findet etwas statt, was viel Zeit benï¿½tigt. <br>
 	 * 
 	 * The simulation refers exclusively to the duration of the access, i.e. in this
 	 * method something takes place that takes a lot of time. <br>
 	 * Simulates a remote and long-term access to a database to obtain large amounts
 	 * of data.
 	 */
-	protected void accesToDB() {
-		
-		System.out.println(" Beginning of accesToDB in Thread: " + Thread.currentThread().getName());
-		long time = System.currentTimeMillis();
+	protected long accesToDB() {
+
+		System.out
+				.println(" Beginning of accesToDB in Thread: " + Thread.currentThread().getName());
+		long t = System.currentTimeMillis();
 		@SuppressWarnings("unused")
 		double sum = 0;
-		for (int i = 0; i < Integer.MAX_VALUE / 8; i++) {
+		for (int i = 0; i < Integer.MAX_VALUE / 2; i++) {
 
 			sum += Math.log10(i);
 		}
-		
-		time = System.currentTimeMillis() - time;
-		System.out.println(" Time of the accesToDB " + time + "ms");
+
+		time = System.currentTimeMillis() - t;
+//		resultLabel.setText("DB access time: " + time);
+//		eventButton.setText("Queries is done in Thread " + Thread.currentThread().getName());
+		return time;
+	}
+
+	protected void accesToDB(Result result) {
+
+		long t = System.currentTimeMillis();
+		@SuppressWarnings("unused")
+		double sum = 0;
+		for (int i = 0; i < Integer.MAX_VALUE / 2; i++) {
+
+			sum += Math.log10(i);
+		}
+
+		result.thread = Thread.currentThread().getName();
+		result.time = System.currentTimeMillis() - t;
 
 	}
 

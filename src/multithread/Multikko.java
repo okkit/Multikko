@@ -3,33 +3,24 @@ package multithread;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
-enum Mode{
-	AWT_AWT,
-	AWT_OWN,
-	OWN_AWT,
-	OWN_OWN
-}
 public class Multikko extends JFrame {
 
-	private Mode mode = Mode.OWN_AWT;
 
-	public Multikko() throws HeadlessException {
-		super("Multikko");
-
-		System.out.println(getClass().getSimpleName() + ": Thread: " + Thread.currentThread().getName());
+	public Multikko(ThreadingMode awtAwt) throws HeadlessException {
 		
-		setBounds(600, 100, 1000, 600);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		super("Multikko");
+		setBounds(600, 100, 600, 300);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		Pannelli panel;
 		
-		switch (mode) {
-		case AWT_AWT: {
+		switch (awtAwt) {
+		case BOTH_IN_AWT: {
 			panel = new QueryAwtResultAwt();
 			break;
 		}
-		case AWT_OWN: {
-			panel = new QueryAwtResultOwn();
+		case BOTH_IN_OWN: {
+			panel = new BothThesameSeparate();
 			break;
 		}
 		case OWN_AWT: {
@@ -48,11 +39,11 @@ public class Multikko extends JFrame {
 		setVisible(true);
 	}
 
-	public static void main(String[] args) {
-
-		System.out.println("Main: Thread: " + Thread.currentThread().getName());
-		new Multikko();
-
-	}
+//	public static void main(String[] args) {
+//
+//		System.out.println("Main: Thread: " + Thread.currentThread().getName());
+//		new Multikko();
+//
+//	}
 
 }

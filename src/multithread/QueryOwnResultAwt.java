@@ -6,25 +6,26 @@ public class QueryOwnResultAwt extends Pannelli {
 	protected void defineLabels() {
 
 		mainLabel.setText("Query in the OWN thread, Result in in the AWT thread");
+		infoLabel.setText(
+				"<html>After button was clicked DB acces is running a lot of time,<br> the result (still empty) will be showed before the acces is completed! </html>");
 
 	}
 
 	@Override
-	protected void callRunQueries() {
-		Thread queryThread = new Thread() {
+	protected void buttonWasClicked() {
+
+		eventButton.setText("Simulation was started. Thread: " + Thread.currentThread().getName());
+
+		Result res = new Result();
+		new Thread(new Runnable() {
+
+			@Override
 			public void run() {
-				accesToDB();
+				accesToDB(res);
 			}
-		};
-		queryThread.start();
-		
-	}
 
-	@Override
-	protected void showQueryResult() {
-
-		resultThreadLabel.setText("Query is done!");
-
+		}).start();
+		resultLabel.setText("DB access done in thread " + res.thread + " Time " + res.time);
 	}
 
 }
