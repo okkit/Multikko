@@ -9,9 +9,6 @@ public class QueryOwnResultOwn extends Pannelli {
 
 		mainLabel.setText(
 				"<html>Query in an OWN thread, <br>show query result in an OWN thread, but invoke later</html>");
-//		infoLabel.setText(
-//				"<html> </html>");
-
 	}
 
 	@Override
@@ -19,22 +16,25 @@ public class QueryOwnResultOwn extends Pannelli {
 
 		eventButton.setText("Simulation was started. Thread: " + Thread.currentThread().getName());
 
-		new Thread(new Runnable() {
+		Thread thread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 
-				final String thread = Thread.currentThread().getName();
-				final String text = " Time " + accesToDB();
+				final String text = " Time " + new DBAccessSimulation().accessToDB();
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						resultLabel.setText("DB access done in thread " + thread + text);
+						resultLabel.setText("Show DB acces result in thread "
+								+ Thread.currentThread().getName() + text);
 					}
 				});
 
 			}
 
-		}).start();
+		});
+		System.out.println(
+				" Start thread " + thread.getName() + " for showing result and invoke it later");
+		thread.start();
 
 	}
 }

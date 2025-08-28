@@ -18,9 +18,8 @@ public class QueryAwtResultAwt extends Pannelli {
 		inputField
 				.setText("You cannot type here because DB access is blocking the AWT event queue!");
 
-		String thread = Thread.currentThread().getName();
-		String text = " Time " + accesToDB();
-		resultLabel.setText("DB access done in thread " + thread + text);
+		long time = new DBAccessSimulation().accessToDB();
+		resultLabel.setText("Show DB acces result in thread "  + Thread.currentThread().getName() + " Time " + time);
 
 	}
 }

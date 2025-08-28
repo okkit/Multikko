@@ -37,13 +37,7 @@ public class Multikko extends JFrame {
 		}
 		add(panel);
 		setVisible(true);
+		System.out.println("Multikko start in thread " + Thread.currentThread().getName());
 	}
-
-//	public static void main(String[] args) {
-//
-//		System.out.println("Main: Thread: " + Thread.currentThread().getName());
-//		new Multikko();
-//
-//	}
 
 }

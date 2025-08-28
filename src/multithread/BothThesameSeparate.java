@@ -9,8 +9,7 @@ public class BothThesameSeparate extends Pannelli {
 
 		mainLabel.setText(
 				"<html>Query start in a separate thread, <br>show query result in the same thread as the DB access.</html>");
-		infoLabel.setText(
-				"<html>After button was clicked DB acces is running a lot of time,<br> "
+		infoLabel.setText("<html>After button was clicked DB acces is running a lot of time,<br> "
 				+ "but the result will be showed in the same thread as DB access! </html>");
 
 	}
@@ -25,15 +24,15 @@ public class BothThesameSeparate extends Pannelli {
 			@Override
 			public void run() {
 
-				final String thread = Thread.currentThread().getName();
-				final String text = " Time " + accesToDB();
+				String thread = Thread.currentThread().getName();
+				String text = " Time " + new DBAccessSimulation().accessToDB();
 
-				resultLabel.setText("DB access done in thread " + thread + text);
+				resultLabel.setText("Show DB acces result in thread " + thread + text);
 			}
 
 		}).start();
-		if (resultLabel.getText().indexOf("Time") != -1){
-				eventButton.setBackground(Color.GRAY);
+		if (resultLabel.getText().indexOf("Time") != -1) {
+			eventButton.setBackground(Color.GRAY);
 		}
 	}
 

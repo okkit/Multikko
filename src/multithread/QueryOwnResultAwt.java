@@ -15,13 +15,12 @@ public class QueryOwnResultAwt extends Pannelli {
 	protected void buttonWasClicked() {
 
 		eventButton.setText("Simulation was started. Thread: " + Thread.currentThread().getName());
-
 		Result res = new Result();
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				accesToDB(res);
+				new DBAccessSimulation().accessToDB(res);
 			}
 
 		}).start();
