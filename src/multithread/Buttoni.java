@@ -8,13 +8,18 @@ import javax.swing.SwingConstants;
 public class Buttoni extends JButton implements Layout{
 
 	public Buttoni(String text) {
-		super(text);
+		this();
+		setText("Button: " + text);
+		
+	}
+	
+	public Buttoni() {
 		setFont(FONT);
-		setBackground(new Color(134, 198, 236));
+//		setBackground(new Color(134, 198, 236));
 		setHorizontalAlignment(SwingConstants.LEFT);
 		setFocusable(false);
 	}
-	
+
 	void setLayout(boolean clicked) {
 		if (clicked)
 			setBackground(new Color(34, 98, 136));

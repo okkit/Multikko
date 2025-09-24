@@ -18,7 +18,7 @@ public class DBAccessSimulation {
 	public long accessToDB() {
 
 		System.out
-				.println(" Beginning of accesToDB in Thread: " + Thread.currentThread().getName());
+				.println("Beginning of accesToDB in Thread: " + Thread.currentThread().getName());
 		long time = System.currentTimeMillis();
 		@SuppressWarnings("unused")
 		double sum = 0;

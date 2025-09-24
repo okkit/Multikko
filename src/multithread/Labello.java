@@ -32,7 +32,7 @@ public class Labello extends JLabel implements Layout{
 
 	public Labello(String title) {
 		this();
-		setText(title);
+		setText("Label: " + title);
 	}
 	
 	public void setText(String txt1, String txt2) {

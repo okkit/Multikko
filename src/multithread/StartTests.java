@@ -17,26 +17,29 @@ public class StartTests extends JFrame {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String iconPath = "specht.png";
 		ImageIcon img = new ImageIcon(iconPath);
 		setIconImage(img.getImage());
-		setBounds(200, 100, 580, 300);
+		setBounds(200, 100, 600, 300);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new GridLayout(0, 1));
 
-		Buttoni b = new Buttoni("Start DB access & show Result both in AWT-Thread");
+		Labello lab = new Labello();
+		String txt = "<html><p color=\"#ff3366\">Please run the tests separately: only run a test when no other test is currently running. <br>"
+				+ "Otherwise, the experiment may be corrupted.</p></html>";
+		lab.setText(txt);
+//		add(lab);
+
+		Buttoni b = new Buttoni();
+		b.setText("Test A: Start DB access & show Result. BOTH in AWT-Thread");
 		b.addActionListener(new ActionListener() {
 
 			@Override
@@ -46,20 +49,19 @@ public class StartTests extends JFrame {
 		});
 		add(b);
 
-		b = new Buttoni("Start DB access in an own thread (Result in AWT-thread)");
+		b = new Buttoni();
+		b.setText("Test B: Start DB access IN AN OWN THREAD. Show Result in AWT-thread");
 		b.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				SwingUtilities
-//						.invokeLater(() -> new Multikko(ThreadingMode.OWN_AWT).setVisible(true));
 				new Multikko(ThreadingMode.OWN_AWT);
 			}
 		});
 		add(b);
 
-		b = new Buttoni(
-				"Start DB access and show Result both in the same, but in an non AWT-thread");
+		b = new Buttoni();
+		b.setText("Test C: Start DB access and show Result. BOTH IN THE SAME BUT NON AWT-thread");
 		b.addActionListener(new ActionListener() {
 
 			@Override
@@ -69,7 +71,8 @@ public class StartTests extends JFrame {
 		});
 		add(b);
 
-		b = new Buttoni("Start DB access in its own thread, show Result in its own thread");
+		b = new Buttoni();
+		b.setText("Test D: As in the Case C: BUT show Result will be invoke later");
 		b.addActionListener(new ActionListener() {
 
 			@Override
@@ -84,12 +87,14 @@ public class StartTests extends JFrame {
 
 	public static void main(String[] args) {
 
-		System.out.println("Programm start in thread " + Thread.currentThread().getName());
+//		System.out.println("Programm start in thread " + Thread.currentThread().getName());
 
-		long time = System.currentTimeMillis();
-		time = System.currentTimeMillis();
-		//SwingUtilities.invokeLater(() -> new StartTests().setVisible(true));
+//		long time = System.currentTimeMillis();
+//		time = System.currentTimeMillis();
+//		SwingUtilities.invokeLater(() -> new StartTests().setVisible(true));
 		new StartTests();
-		time = System.currentTimeMillis() - time;
+//		time = System.currentTimeMillis() - time;
+
+//		System.out.println("Time for the Starting of GUI " + time);
 	}
 }

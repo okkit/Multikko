@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 public class Textii extends JTextField implements MouseListener, Layout{
 
 	public Textii(String text) {
-		super(text);
+		super("Textfield: " + text);
 		setFont(FONT);
 //		addMouseListener(this);
 	}

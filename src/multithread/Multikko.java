@@ -28,7 +28,7 @@ public class Multikko extends JFrame {
 			break;
 		}
 		case OWN_OWN: {
-			panel = new QueryOwnResultOwn();
+			panel = new QueryOwnResultInvokeLater();
 			break;
 		}
 		default:

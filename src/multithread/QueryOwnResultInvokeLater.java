@@ -2,25 +2,19 @@ package multithread;
 
 import javax.swing.SwingUtilities;
 
-public class QueryOwnResultOwn extends Pannelli {
-
-	@Override
-	protected void defineLabels() {
-
-		mainLabel.setText(
-				"<html>Query in an OWN thread, <br>show query result in an OWN thread, but invoke later</html>");
-	}
+public class QueryOwnResultInvokeLater extends Pannelli {
 
 	@Override
 	protected void buttonWasClicked() {
 
 		eventButton.setText("Simulation was started. Thread: " + Thread.currentThread().getName());
-
-		Thread thread = new Thread(new Runnable() {
+		Thread thread = new Thread() {
 
 			@Override
 			public void run() {
 
+				System.out.println(
+						" Create Runnable for showing result and invoke it later");
 				final String text = " Time " + new DBAccessSimulation().accessToDB();
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
@@ -28,13 +22,19 @@ public class QueryOwnResultOwn extends Pannelli {
 								+ Thread.currentThread().getName() + text);
 					}
 				});
-
 			}
-
-		});
+		};
 		System.out.println(
-				" Start thread " + thread.getName() + " for showing result and invoke it later");
+				" Start thread " + thread.getName() + " for DB-access");
 		thread.start();
 
 	}
+	
+	@Override
+	protected void defineLabels() {
+
+		mainLabel.setText(
+				"<html>Query and show Result in a separatly thread, <br>show query result as Runnable with invoking later</html>");
+	}
+
 }
