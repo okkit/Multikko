@@ -36,7 +36,7 @@ public class StartTests extends JFrame {
 		String txt = "<html><p color=\"#ff3366\">Please run the tests separately: only run a test when no other test is currently running. <br>"
 				+ "Otherwise, the experiment may be corrupted.</p></html>";
 		lab.setText(txt);
-//		add(lab);
+		add(lab);
 
 		Buttoni b = new Buttoni();
 		b.setText("Test A: Start DB access & show Result. BOTH in AWT-Thread");
